@@ -2,18 +2,6 @@
 
 ### Start Backend
 
-Make directory for logs 
-```bash
-sudo mkdir /var/log/baseapp/
-sudo chown -R name:name /var/log/baseapp/
-```
-
-Make directory for images 
-```bash
-sudo mkdir /var/log/baseapp/
-sudo chown -R name:name /var/log/baseapp/
-```
-
 Go to backend module
 ```bash
 cd backend/
