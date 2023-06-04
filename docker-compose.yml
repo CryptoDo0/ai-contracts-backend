@@ -1,0 +1,49 @@
+x-app: &default-app
+  env_file:
+    - ".env"
+  restart: "unless-stopped"
+  stop_grace_period: "3s"
+  tty: true
+  healthcheck:
+    interval: "60s"
+    timeout: "3s"
+    start_period: "5s"
+    retries: 3
+
+services:
+  backend:
+    <<: *default-app
+    build:
+      context: "./services/backend"
+      dockerfile: Dockerfile
+      target: ${NODE_ENV}
+      args:
+        - "NODE_ENV=${NODE_ENV}"
+        - "SERVER_PORT=${SERVER_PORT}"
+    ports:
+      - "${DOCKER_SERVER_PORT_FORWARD}:${SERVER_PORT}"
+    healthcheck:
+      test: "${DOCKER_SERVER_HEALTHCHECK_TEST}"
+    volumes:
+      - "./services/backend:/node/app:delegated"
+      - "/node/app/node_modules" # Anonymous volume to hide our local node_modules
+      - "./services/backend/flatten/solidity-flattener:/node/app/flatten/solidity-flattener"
+
+  postgres:
+    container_name: postgresnest
+    image: postgres:14
+    env_file:
+    - ./services/backend/.development.env
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+      POSTGRES_DB: basebase
+      POSTGRES_USER: baseuser
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pgdata:

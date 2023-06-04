@@ -1,0 +1,53 @@
+# compiled output
+/dist
+/node_modules
+
+/service/backend/dist
+/service/backend/node_modules
+/service/backend/.*.env
+
+# flatten data
+/services/backend/flatten/solidity-flattener/dist
+/services/backend/flatten/solidity-flattener/node_modules
+/services/backend/flatten/solidity-flattener/out
+/services/backend/flatten/solidity-flattener/contract_*
+
+/service/frontend/dist
+/service/frontend/node_modules
+
+/build
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Fleet
+/.fleet
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
